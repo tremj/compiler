@@ -1,25 +1,25 @@
 #[derive(Clone, Debug, PartialEq)]
 pub enum Token {
-    LSquigly,
-    RSquigly,
-    LPar,
-    RPar,
-    Semicolon,
+    LSquigly,  // {
+    RSquigly,  // }
+    LPar,      // (
+    RPar,      // )
+    Semicolon, // ;
 
-    Int,
-    Return,
-    If,
-    Else,
+    Int,    // int
+    Return, // return
+    If,     // if
+    Else,   // else
 
-    Equal,
-    GThan,
-    GEThan,
-    LThan,
-    LEThan,
+    Equal,  // =
+    GThan,  // >
+    GEThan, // >=
+    LThan,  // <
+    LEThan, // <=
 
     EOF,
 
-    Ident(String),
+    Identifier(String), // identifier
 
     IntVal(String),
 }
@@ -73,14 +73,14 @@ impl Lexer {
             0 => Token::EOF,
             b'0'..=b'9' => Token::IntVal(self.read_int()),
             b'a'..=b'z' | b'A'..=b'Z' | b'_' => {
-                let ident = self.read_ident();
+                let ident = self.read_identifier();
                 let tok = match ident.as_str() {
                     "int" => Token::Int,
                     "return" => Token::Return,
                     "if" => Token::If,
                     "else" => Token::Else,
 
-                    _ => Token::Ident(ident),
+                    _ => Token::Identifier(ident),
                 };
 
                 tok
@@ -127,10 +127,12 @@ impl Lexer {
         }
     }
 
-    fn read_ident(&mut self) -> String {
+    fn read_identifier(&mut self) -> String {
         let pos = self.position;
         while (self.ch.is_ascii_alphabetic() || self.ch == b'_' || self.ch.is_ascii_digit())
-            && (self.peek().is_ascii_alphabetic() || self.peek() == b'_' || self.peek().is_ascii_digit())
+            && (self.peek().is_ascii_alphabetic()
+                || self.peek() == b'_'
+                || self.peek().is_ascii_digit())
         {
             self.read_char();
         }
@@ -165,7 +167,7 @@ mod test {
         let mut lex = Lexer::new(String::from(input));
         let tokens = vec![
             Token::Int,
-            Token::Ident(String::from("main")),
+            Token::Identifier(String::from("main")),
             Token::LPar,
             Token::RPar,
             Token::LSquigly,
@@ -191,7 +193,7 @@ mod test {
         let mut lex = Lexer::new(String::from(input));
         let tokens = vec![
             Token::Int,
-            Token::Ident(String::from("main")),
+            Token::Identifier(String::from("main")),
             Token::LPar,
             Token::RPar,
             Token::LSquigly,

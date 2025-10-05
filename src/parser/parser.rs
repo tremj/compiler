@@ -28,7 +28,7 @@ impl<'a> Parser<'a> {
                     return code;
                 }
             }
-            Token::Ident(name) => {
+            Token::Identifier(name) => {
                 let res = self.get_function_args();
                 code = res.1;
                 if !code {
