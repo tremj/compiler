@@ -96,7 +96,7 @@ impl<'a> Parser<'a> {
 
     fn parse_statement(&mut self, function_node: &mut ASTNode, expression: Token) -> bool {
         let statement_string = match expression {
-            Token::Return => String::from("return"),
+            Token::Return => { String::from("return") },
             _ => return false,
         };
 
@@ -137,6 +137,8 @@ mod test {
     use super::Parser;
     use crate::lexer::lexer::Lexer;
     use std::fs;
+    use crate::parser::ast::{AST, ASTNode};
+    use crate::parser::ast::SyntaxNodeType::{Expression, Function, Statement};
 
     #[test]
     fn parser_test_valid_multi_digit() {
@@ -146,6 +148,16 @@ mod test {
         let mut parser = Parser::new(&tokens);
         let no_err = parser.parse();
         assert!(no_err);
+
+        let mut ast = AST::new();
+        let expression_node = ASTNode::new(Expression(100));
+        let mut statement_node = ASTNode::new(Statement(String::from("return")));
+        statement_node.add_child(expression_node);
+        let mut function_node = ASTNode::new(Function(String::from("main")));
+        function_node.add_child(statement_node);
+        ast.root.add_child(function_node);
+
+        assert_eq!(ast, parser.ast);
     }
 
     #[test]
@@ -156,6 +168,16 @@ mod test {
         let mut parser = Parser::new(&tokens);
         let no_err = parser.parse();
         assert!(no_err);
+
+        let mut ast = AST::new();
+        let expression_node = ASTNode::new(Expression(0));
+        let mut statement_node = ASTNode::new(Statement(String::from("return")));
+        statement_node.add_child(expression_node);
+        let mut function_node = ASTNode::new(Function(String::from("main")));
+        function_node.add_child(statement_node);
+        ast.root.add_child(function_node);
+
+        assert_eq!(ast, parser.ast);
     }
 
     #[test]
@@ -166,6 +188,16 @@ mod test {
         let mut parser = Parser::new(&tokens);
         let no_err = parser.parse();
         assert!(no_err);
+
+        let mut ast = AST::new();
+        let expression_node = ASTNode::new(Expression(0));
+        let mut statement_node = ASTNode::new(Statement(String::from("return")));
+        statement_node.add_child(expression_node);
+        let mut function_node = ASTNode::new(Function(String::from("main")));
+        function_node.add_child(statement_node);
+        ast.root.add_child(function_node);
+
+        assert_eq!(ast, parser.ast);
     }
 
     #[test]
@@ -176,6 +208,16 @@ mod test {
         let mut parser = Parser::new(&tokens);
         let no_err = parser.parse();
         assert!(no_err);
+
+        let mut ast = AST::new();
+        let expression_node = ASTNode::new(Expression(0));
+        let mut statement_node = ASTNode::new(Statement(String::from("return")));
+        statement_node.add_child(expression_node);
+        let mut function_node = ASTNode::new(Function(String::from("main")));
+        function_node.add_child(statement_node);
+        ast.root.add_child(function_node);
+
+        assert_eq!(ast, parser.ast);
     }
 
     #[test]
@@ -186,6 +228,16 @@ mod test {
         let mut parser = Parser::new(&tokens);
         let no_err = parser.parse();
         assert!(no_err);
+
+        let mut ast = AST::new();
+        let expression_node = ASTNode::new(Expression(2));
+        let mut statement_node = ASTNode::new(Statement(String::from("return")));
+        statement_node.add_child(expression_node);
+        let mut function_node = ASTNode::new(Function(String::from("main")));
+        function_node.add_child(statement_node);
+        ast.root.add_child(function_node);
+
+        assert_eq!(ast, parser.ast);
     }
 
     #[test]
@@ -196,6 +248,16 @@ mod test {
         let mut parser = Parser::new(&tokens);
         let no_err = parser.parse();
         assert!(no_err);
+
+        let mut ast = AST::new();
+        let expression_node = ASTNode::new(Expression(0));
+        let mut statement_node = ASTNode::new(Statement(String::from("return")));
+        statement_node.add_child(expression_node);
+        let mut function_node = ASTNode::new(Function(String::from("main")));
+        function_node.add_child(statement_node);
+        ast.root.add_child(function_node);
+
+        assert_eq!(ast, parser.ast);
     }
 
     #[test]

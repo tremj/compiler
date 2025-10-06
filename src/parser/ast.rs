@@ -1,5 +1,5 @@
 /*
-supported grammer right now
+supported grammar right now
 
 <program> ::= <function>
 <function> ::= "int" <id> "(" ")" "{" <statement> "}"
@@ -16,6 +16,7 @@ pub enum SyntaxNodeType {
     Expression(i64),
 }
 
+#[derive(Debug, PartialEq)]
 pub struct ASTNode {
     children: Vec<ASTNode>,
     node_type: SyntaxNodeType,
@@ -38,6 +39,7 @@ impl ASTNode {
     }
 }
 
+#[derive(Debug, PartialEq)]
 pub struct AST {
     pub root: ASTNode,
 }
